@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<anim numframes="300" framerate="30">
+<channel name="Background:position">
+<keyframe frame="0" x="-100" y="0"/>
+<keyframe frame="60" x="-100" y="0"/>
+<keyframe frame="90" x="-100" y="0"/>
+<keyframe frame="150" x="-100" y="0"/>
+<keyframe frame="210" x="-100" y="0"/>
+</channel>
+<channel name="Background:Background">
+<keyframe frame="0" angle="0"/>
+<keyframe frame="60" angle="0"/>
+<keyframe frame="90" angle="0"/>
+<keyframe frame="150" angle="0"/>
+<keyframe frame="210" angle="0"/>
+</channel>
+<channel name="Harold:position">
+<keyframe frame="0" x="1028" y="484"/>
+<keyframe frame="60" x="715" y="483"/>
+<keyframe frame="90" x="715" y="483"/>
+<keyframe frame="150" x="715" y="483"/>
+<keyframe frame="210" x="715" y="466"/>
+</channel>
+<channel name="Harold:Left Arm">
+<keyframe frame="0" angle="0"/>
+<keyframe frame="60" angle="2.62"/>
+<keyframe frame="90" angle="2.62"/>
+<keyframe frame="150" angle="0.600000000000001"/>
+<keyframe frame="210" angle="2.6"/>
+</channel>
+<channel name="Harold:Right Arm">
+<keyframe frame="0" angle="0"/>
+<keyframe frame="60" angle="-0.14"/>
+<keyframe frame="90" angle="-0.14"/>
+<keyframe frame="150" angle="-2.72"/>
+<keyframe frame="210" angle="-2.7"/>
+</channel>
+<channel name="Harold:Right Hand">
+<keyframe frame="0" angle="0"/>
+<keyframe frame="60" angle="0"/>
+<keyframe frame="90" angle="0"/>
+<keyframe frame="150" angle="0"/>
+<keyframe frame="210" angle="0"/>
+</channel>
+<channel name="Harold:Left Hand">
+<keyframe frame="0" angle="0"/>
+<keyframe frame="60" angle="0"/>
+<keyframe frame="90" angle="0"/>
+<keyframe frame="150" angle="0"/>
+<keyframe frame="210" angle="0"/>
+</channel>
+<channel name="Harold:Right Leg">
+<keyframe frame="0" angle="0"/>
+<keyframe frame="60" angle="-0.38"/>
+<keyframe frame="90" angle="-0.38"/>
+<keyframe frame="150" angle="9.99999999999999E-02"/>
+<keyframe frame="210" angle="-0.74"/>
+</channel>
+<channel name="Harold:Left Leg">
+<keyframe frame="0" angle="0"/>
+<keyframe frame="60" angle="0.56"/>
+<keyframe frame="90" angle="0.56"/>
+<keyframe frame="150" angle="0.04"/>
+<keyframe frame="210" angle="0.6"/>
+</channel>
+<channel name="Harold:Shirt">
+<keyframe frame="0" angle="0"/>
+<keyframe frame="60" angle="-0.1"/>
+<keyframe frame="90" angle="-0.1"/>
+<keyframe frame="150" angle="-0.1"/>
+<keyframe frame="210" angle="-0.1"/>
+</channel>
+<channel name="Harold:Vest">
+<keyframe frame="0" angle="0"/>
+<keyframe frame="60" angle="0"/>
+<keyframe frame="90" angle="0"/>
+<keyframe frame="150" angle="0"/>
+<keyframe frame="210" angle="0"/>
+</channel>
+<channel name="Harold:Head Bottom">
+<keyframe frame="0" angle="0"/>
+<keyframe frame="60" angle="0"/>
+<keyframe frame="90" angle="0"/>
+<keyframe frame="150" angle="0.1"/>
+<keyframe frame="210" angle="0.1"/>
+</channel>
+<channel name="Harold:Head Top">
+<keyframe frame="0" angle="0"/>
+<keyframe frame="60" angle="0"/>
+<keyframe frame="90" angle="0"/>
+<keyframe frame="150" angle="-0.26"/>
+<keyframe frame="210" angle="-0.26"/>
+</channel>
+<channel name="Harold:Head Top:position">
+<keyframe frame="0" x="0" y="-31"/>
+<keyframe frame="60" x="0" y="-31"/>
+<keyframe frame="90" x="0" y="-31"/>
+<keyframe frame="150" x="0" y="-31"/>
+<keyframe frame="210" x="0" y="-31"/>
+</channel>
+<channel name="Harold:Harold Text Bubble">
+<keyframe frame="0" angle="0"/>
+<keyframe frame="60" angle="0"/>
+<keyframe frame="90" angle="0"/>
+<keyframe frame="150" angle="0"/>
+<keyframe frame="210" angle="0"/>
+</channel>
+<channel name="Harold:Harold Text Bubble:position">
+<keyframe frame="0" x="50" y="-275"/>
+<keyframe frame="60" x="50" y="-275"/>
+<keyframe frame="90" x="50" y="-275"/>
+<keyframe frame="150" x="50" y="-275"/>
+<keyframe frame="210" x="50" y="-275"/>
+</channel>
+<channel name="">
+<keyframe frame="0" text=""/>
+<keyframe frame="60" text="Hello! Sparty!"/>
+<keyframe frame="90" text=""/>
+<keyframe frame="150" text="I'm fine. Thank you! And you?"/>
+<keyframe frame="210" text=""/>
+</channel>
+<channel name="Sparty:position">
+<keyframe frame="0" x="132" y="531"/>
+<keyframe frame="60" x="451" y="519"/>
+<keyframe frame="90" x="451" y="519"/>
+<keyframe frame="150" x="451" y="519"/>
+<keyframe frame="210" x="451" y="519"/>
+</channel>
+<channel name="Sparty:Left Leg">
+<keyframe frame="0" angle="0"/>
+<keyframe frame="60" angle="0"/>
+<keyframe frame="90" angle="0"/>
+<keyframe frame="150" angle="0"/>
+<keyframe frame="210" angle="0.66"/>
+</channel>
+<channel name="Sparty:Right Leg">
+<keyframe frame="0" angle="0"/>
+<keyframe frame="60" angle="0"/>
+<keyframe frame="90" angle="0"/>
+<keyframe frame="150" angle="0"/>
+<keyframe frame="210" angle="0"/>
+</channel><channel name="Sparty:Torso"><keyframe frame="0" angle="0"/><keyframe frame="60" angle="0"/><keyframe frame="90" angle="0.02"/><keyframe frame="150" angle="0.02"/><keyframe frame="210" angle="0.02"/></channel><channel name="Sparty:Left Arm"><keyframe frame="0" angle="0"/><keyframe frame="60" angle="0"/><keyframe frame="90" angle="0"/><keyframe frame="150" angle="-0.3"/><keyframe frame="210" angle="1.9"/></channel><channel name="Sparty:Right Arm"><keyframe frame="0" angle="0"/><keyframe frame="60" angle="0.24"/><keyframe frame="90" angle="-0.76"/><keyframe frame="150" angle="0.219999999999999"/><keyframe frame="210" angle="-2.16"/></channel><channel name="Sparty:Head Bottom"><keyframe frame="0" angle="0"/><keyframe frame="60" angle="0"/><keyframe frame="90" angle="0"/><keyframe frame="150" angle="0"/><keyframe frame="210" angle="0"/></channel><channel name="Sparty:Head Top"><keyframe frame="0" angle="0"/><keyframe frame="60" angle="0"/><keyframe frame="90" angle="0"/><keyframe frame="150" angle="0"/><keyframe frame="210" angle="0"/></channel><channel name="Sparty:Head Top:position"><keyframe frame="0" x="0" y="-28"/><keyframe frame="60" x="0" y="-28"/><keyframe frame="90" x="9" y="-24"/><keyframe frame="150" x="9" y="-24"/><keyframe frame="210" x="9" y="-24"/></channel><channel name="Sparty:Sparty Text Bubble"><keyframe frame="0" angle="0"/><keyframe frame="60" angle="0"/><keyframe frame="90" angle="0.58"/><keyframe frame="150" angle="0.58"/><keyframe frame="210" angle="-0.14"/></channel><channel name="Sparty:Sparty Text Bubble:position"><keyframe frame="0" x="50" y="-250"/><keyframe frame="60" x="50" y="-250"/><keyframe frame="90" x="-151" y="-185"/><keyframe frame="150" x="-151" y="-185"/><keyframe frame="210" x="-72" y="-269"/></channel><channel name=""><keyframe frame="0" text=""/><keyframe frame="60" text=""/><keyframe frame="90" text="Hello! Harold! How are you?"/><keyframe frame="150" text=""/><keyframe frame="210" text="I'm fine too."/></channel></anim>
