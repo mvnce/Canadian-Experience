@@ -61,12 +61,6 @@ void CViewEdit::OnDraw(CDC* pDC)
     SetScrollSizes(MM_TEXT, CSize(size.Width, size.Height));
 
     GetPicture()->Draw(&graphics);
-
-	/*
-	mTextBubble.SetText(L"I'm a Text Bubble. Look at me!");
-	mTextBubble.SetBubblePosition(400, 100);
-	mTextBubble.DrawMe(&graphics);
-	*/
 }
 
 /** \brief Force an update of this window when the picture changes.

@@ -60,6 +60,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>$(TargetDir)TextBubbleLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <StackReserveSize>10000000</StackReserveSize>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -108,17 +109,21 @@
     <ClInclude Include="AnimChannelText.h" />
     <ClInclude Include="CanadianExperience.h" />
     <ClInclude Include="Drawable.h" />
+    <ClInclude Include="HandProp.h" />
     <ClInclude Include="HaroldFactory.h" />
     <ClInclude Include="HeadTop.h" />
     <ClInclude Include="ImageDrawable.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="DoubleBufferDC.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Picture.h" />
     <ClInclude Include="PictureFactory.h" />
     <ClInclude Include="PictureObserver.h" />
     <ClInclude Include="PolyDrawable.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="RotatedBitmap.h" />
+    <ClInclude Include="SnowFlake.h" />
+    <ClInclude Include="SnowFlakeLinkedList.h" />
     <ClInclude Include="SpartyFactory.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -140,15 +145,19 @@
     <ClCompile Include="AnimChannelText.cpp" />
     <ClCompile Include="CanadianExperience.cpp" />
     <ClCompile Include="Drawable.cpp" />
+    <ClCompile Include="HandProp.cpp" />
     <ClCompile Include="HaroldFactory.cpp" />
     <ClCompile Include="HeadTop.cpp" />
     <ClCompile Include="ImageDrawable.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Picture.cpp" />
     <ClCompile Include="PictureFactory.cpp" />
     <ClCompile Include="PictureObserver.cpp" />
     <ClCompile Include="PolyDrawable.cpp" />
     <ClCompile Include="RotatedBitmap.cpp" />
+    <ClCompile Include="SnowFlake.cpp" />
+    <ClCompile Include="SnowFlakeLinkedList.cpp" />
     <ClCompile Include="SpartyFactory.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -9,9 +9,11 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 #include "AnimChannel.h"
 #include "XmlNode.h"
+#include "ParticleSystem.h"
 
 /**
  * \brief The animation timeline class.
@@ -74,6 +76,16 @@ public:
 
     void Clear();
 
+	void SetParticleSystem(std::shared_ptr<CParticleSystem> system);
+
+	/** \brief Get the particle system
+	* \returns The particlesystem */
+	std::shared_ptr<CParticleSystem> GetParticleSystem() { return mParticleSystem; }
+
+	void ResetParticleSystem();
+
+	void SetPictureSize(Gdiplus::Size size);
+
 private:
     void XmlChannel(const std::shared_ptr<xmlnode::CXmlNode> &node);
 
@@ -84,5 +96,7 @@ private:
     /// List of all animation channels
     std::vector<CAnimChannel *> mChannels;
 
+	/// The ParticleSystem this timeline is associated with
+	std::shared_ptr<CParticleSystem> mParticleSystem;
 };
 

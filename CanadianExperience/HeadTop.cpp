@@ -113,18 +113,6 @@ void CHeadTop::Draw(Gdiplus::Graphics *graphics)
         DrawEye(graphics, Point(leftX, eyeY));
         DrawEye(graphics, Point(rightX, eyeY));
     }
-
-    //SolidBrush brush(Color::Black);
-    //FontFamily fontFamily(L"Arial");
-    //Gdiplus::Font font(&fontFamily, 30);
-
-    //wstringstream str;
-    //double rotation = GetRotation();
-    //str << fixed << setprecision(1) << rotation;
-    //RectF bb;
-    //graphics->MeasureString(str.str().c_str(), str.str().length(), &font, PointF(0, 0), &bb);
-    //graphics->DrawString(str.str().c_str(), str.str().length(), &font, PointF((float)(mPlacedPosition.X - bb.Width / 2), (float)mPlacedPosition.Y - 40), &brush);
-
 }
 
 /** \brief Draw an eye using an Ellipse

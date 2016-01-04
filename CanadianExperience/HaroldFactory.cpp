@@ -9,6 +9,7 @@
 #include "PolyDrawable.h"
 #include "ImageDrawable.h"
 #include "HeadTop.h"
+#include "HandProp.h"
 
 using namespace Gdiplus;
 using namespace std;
@@ -102,11 +103,17 @@ std::shared_ptr<CActor> CHaroldFactory::Create()
     rhand->AddPoint(Point(11, -2));
     rarm->AddChild(rhand);
 
+	auto flag = make_shared<CHandProp>(L"Harold flag", L"images/flag.png");
+	flag->SetCenter(Point(44, 31));
+	flag->SetPosition(Point(-87, -130));
+	rhand->AddChild(flag);
+
 	auto textbubble = make_shared<CTextBubbleDrawable>(L"Harold Text Bubble");
 	textbubble->SetPosition(Point(50, -275));
 	mHaroldTextBubbleDrawable = textbubble;
 	shirt->AddChild(textbubble);
 
+	actor->AddDrawable(flag);
     actor->AddDrawable(larm);
     actor->AddDrawable(rarm);
     actor->AddDrawable(rhand);

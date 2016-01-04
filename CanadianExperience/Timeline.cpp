@@ -8,12 +8,15 @@
 #include "Timeline.h"
 
 using namespace xmlnode;
+using namespace std;
 
 /**
  * \brief Constructor
  */
 CTimeline::CTimeline()
 {
+	mParticleSystem = make_shared<CParticleSystem>();
+	mParticleSystem->CreatePool();
 }
 
 
@@ -169,4 +172,28 @@ void CTimeline::Clear()
     {
         channel->Clear();
     }
+}
+
+
+/** \brief Set the ParticleSystem for timeline
+* \param system The ParticleSystem to set */
+void CTimeline::SetParticleSystem(std::shared_ptr<CParticleSystem> system)
+{
+	system->SetTimeline(this);
+}
+
+
+
+/** \brief Reset the particleSystem
+*/
+void CTimeline::ResetParticleSystem()
+{
+	mParticleSystem->Reset();
+}
+
+/** \brief Set the picture size
+*/
+void CTimeline::SetPictureSize(Gdiplus::Size size)
+{
+	mParticleSystem->SetPictureSize(size);
 }

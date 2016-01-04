@@ -105,6 +105,18 @@
     <ClInclude Include="AnimChannelText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SnowFlake.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowFlakeLinkedList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HandProp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CanadianExperience.cpp">
@@ -186,6 +198,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AnimChannelText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowFlake.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowFlakeLinkedList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HandProp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

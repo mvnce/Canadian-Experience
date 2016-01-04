@@ -15,6 +15,7 @@ using namespace Gdiplus;
  */
 CPicture::CPicture()
 {
+	mTimeline.SetPictureSize(mSize);
 }
 
 
@@ -81,6 +82,10 @@ void CPicture::Draw(Gdiplus::Graphics *graphics)
     {
         actor->Draw(graphics);
     }
+
+	SolidBrush brush(Color::White);
+
+	mTimeline.GetParticleSystem()->Draw(graphics, &brush);
 }
 
 
@@ -100,3 +105,13 @@ double CPicture::GetAnimationTime()
 {
     return mTimeline.GetCurrentTime();
 }
+
+
+/** \brief Handle updates for animation
+* \param elapsed The time since the last update
+*/
+void CPicture::Update(double elapsed)
+{
+	mTimeline.GetParticleSystem()->Update(elapsed);
+}
+

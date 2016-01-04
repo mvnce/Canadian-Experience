@@ -52,6 +52,7 @@ static UINT indicators[] =
 /** \brief Constructor */
 CMainFrame::CMainFrame()
 {
+	srand((unsigned int)time(nullptr));
 }
 
 /** \brief Destructor */

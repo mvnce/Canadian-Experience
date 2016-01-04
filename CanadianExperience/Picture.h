@@ -44,6 +44,7 @@ public:
     void UpdateObservers();
     void Draw(Gdiplus::Graphics *graphics);
     void AddActor(std::shared_ptr<CActor> actor);
+	void Update(double eplased);
 
     /** \brief Iterator that iterates over the actors in a picture */
     class ActorIter

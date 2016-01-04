@@ -20,9 +20,6 @@
 using namespace std;
 using namespace Gdiplus;
 
-/// Frame duration in milliseconds
-const int FrameDuration = 30;
-
 /// The window height
 const int WindowHeight = 65;
 
@@ -49,8 +46,8 @@ IMPLEMENT_DYNCREATE(CViewTimeline, CScrollView)
 /** \brief Constructor */
 CViewTimeline::CViewTimeline()
 {
-    mPointer = unique_ptr<Bitmap>(Bitmap::FromFile(L"images/pointer.png"));
-    assert(mPointer->GetLastStatus() == Ok);
+	mPointer = unique_ptr<Bitmap>(Bitmap::FromFile(L"images/pointer.png"));
+	assert(mPointer->GetLastStatus() == Ok);
 }
 
 /** \brief Destructor */
@@ -60,18 +57,18 @@ CViewTimeline::~CViewTimeline()
 
 
 BEGIN_MESSAGE_MAP(CViewTimeline, CScrollView)
-    ON_WM_CREATE()
-    ON_WM_ERASEBKGND()
-    ON_WM_MOUSEMOVE()
-    ON_WM_LBUTTONDOWN()
-    ON_COMMAND(ID_EDIT_SETKEYFRAME, &CViewTimeline::OnEditSetkeyframe)
-    ON_COMMAND(ID_EDIT_DELETEKEYFRAME, &CViewTimeline::OnEditDeletekeyframe)
-    ON_COMMAND(ID_FILE_SAVEAS, &CViewTimeline::OnFileSaveas)
-    ON_COMMAND(ID_FILE_OPEN32782, &CViewTimeline::OnFileOpen32782)
-	ON_WM_TIMER()
+	ON_WM_CREATE()
+	ON_WM_ERASEBKGND()
+	ON_WM_MOUSEMOVE()
+	ON_WM_LBUTTONDOWN()
+	ON_COMMAND(ID_EDIT_SETKEYFRAME, &CViewTimeline::OnEditSetkeyframe)
+	ON_COMMAND(ID_EDIT_DELETEKEYFRAME, &CViewTimeline::OnEditDeletekeyframe)
+	ON_COMMAND(ID_FILE_SAVEAS, &CViewTimeline::OnFileSaveas)
+	ON_COMMAND(ID_FILE_OPEN32782, &CViewTimeline::OnFileOpen32782)
 	ON_COMMAND(ID_PLAY_PLAY, &CViewTimeline::OnPlayPlay)
 	ON_COMMAND(ID_PLAY_PLAYFROMBEGINNING, &CViewTimeline::OnPlayPlayfrombeginning)
 	ON_COMMAND(ID_PLAY_STOP, &CViewTimeline::OnPlayStop)
+	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 
@@ -80,130 +77,90 @@ void CViewTimeline::OnInitialUpdate()
 {
 	CScrollView::OnInitialUpdate();
 
-    int sbHeight = GetSystemMetrics(SM_CXHSCROLL);
-    CSize sizeTotal(200, Height - sbHeight - 20);
+	int sbHeight = GetSystemMetrics(SM_CXHSCROLL);
+	CSize sizeTotal(200, Height - sbHeight - 20);
 	SetScrollSizes(MM_TEXT, sizeTotal);
 }
 
-/** \brief Draw this window 
- * \param pDC Device context */
+/** \brief Draw this window
+* \param pDC Device context */
 void CViewTimeline::OnDraw(CDC* pDC)
 {
-    // Get the timeline
-    CTimeline *timeline = GetPicture()->GetTimeline();
+	// Get the timeline
+	CTimeline *timeline = GetPicture()->GetTimeline();
 
-    // Set the scroll system correctly
-    CSize sizeTotal(timeline->GetNumFrames() * TickSpacing + BorderLeft + BorderRight, WindowHeight);
-    SetScrollSizes(MM_TEXT, sizeTotal);
+	// Set the scroll system correctly
+	CSize sizeTotal(timeline->GetNumFrames() * TickSpacing + BorderLeft + BorderRight, WindowHeight);
+	SetScrollSizes(MM_TEXT, sizeTotal);
 
-    CDoubleBufferDC dbDC(pDC);
+	CDoubleBufferDC dbDC(pDC);
 
-    Graphics graphics(dbDC.m_hDC);    // Create GDI+ graphics context
+	Graphics graphics(dbDC.m_hDC);    // Create GDI+ graphics context
 
-    CRect rect;
-    GetClientRect(&rect);
-    int hit = rect.Height();
-    int wid = rect.Width();
+	CRect rect;
+	GetClientRect(&rect);
+	int hit = rect.Height();
+	int wid = rect.Width();
 
-    Pen tickpen(Color::Black);
-    SolidBrush brush(Color::Black);
-    FontFamily fontFamily(L"Arial");
-    Gdiplus::Font font(&fontFamily, 10);
+	Pen tickpen(Color::Black);
+	SolidBrush brush(Color::Black);
+	FontFamily fontFamily(L"Arial");
+	Gdiplus::Font font(&fontFamily, 10);
 
-    int bottom = hit - TickUnder;
+	int bottom = hit - TickUnder;
 
-    for (int tickNum = 0; tickNum <= timeline->GetNumFrames(); tickNum++)
-    {
-        int x = BorderLeft + tickNum * TickSpacing;
-        int top = bottom - TickShort;
-        bool onSecond = (tickNum % timeline->GetFrameRate()) == 0;
-        if (onSecond)
-        {
-            top = bottom - TickLong;
-
-            // Convert the tick number to seconds in a string
-            std::wstringstream str;
-            str << tickNum / timeline->GetFrameRate();
-            std::wstring wstr = str.str();
-
-            RectF size;
-            PointF origin(0.0f, 0.0f);
-            graphics.MeasureString(wstr.c_str(), wstr.size(), &font, origin, &size);
-
-            graphics.DrawString(wstr.c_str(), wstr.size(), &font, PointF(x - size.Width / 2, bottom - TickLong - size.Height), &brush);
-        }
-
-        graphics.DrawLine(&tickpen, x, bottom, x, top);
-    }
-
-    //
-    // Draw the pointer
-    //
-    int pw = mPointer->GetWidth();
-    int ph = mPointer->GetHeight();
-    int x = BorderLeft + (int)(timeline->GetCurrentTime() * timeline->GetFrameRate() * TickSpacing);
-    graphics.DrawImage(mPointer.get(),
-        x - mPointer->GetWidth() / 2, (int)(bottom - mPointer->GetHeight()),
-        mPointer->GetWidth(), mPointer->GetHeight()
-        );
-
-	
-	if (mFirstDraw)
+	for (int tickNum = 0; tickNum <= timeline->GetNumFrames(); tickNum++)
 	{
-		mFirstDraw = false;
-		SetTimer(1, FrameDuration, nullptr);
+		int x = BorderLeft + tickNum * TickSpacing;
+		int top = bottom - TickShort;
+		bool onSecond = (tickNum % timeline->GetFrameRate()) == 0;
+		if (onSecond)
+		{
+			top = bottom - TickLong;
 
-		/*
-		* Initialize the elapsed time system
-		*/
-		LARGE_INTEGER time, freq;
-		QueryPerformanceCounter(&time);
-		QueryPerformanceFrequency(&freq);
+			// Convert the tick number to seconds in a string
+			std::wstringstream str;
+			str << tickNum / timeline->GetFrameRate();
+			std::wstring wstr = str.str();
 
-		mLastTime = time.QuadPart;
-		mTimeFreq = double(freq.QuadPart);
+			RectF size;
+			PointF origin(0.0f, 0.0f);
+			graphics.MeasureString(wstr.c_str(), wstr.size(), &font, origin, &size);
+
+			graphics.DrawString(wstr.c_str(), wstr.size(), &font, PointF(x - size.Width / 2, bottom - TickLong - size.Height), &brush);
+		}
+
+		graphics.DrawLine(&tickpen, x, bottom, x, top);
 	}
 
-	/*
-	* Compute the elapsed time since the last draw
-	*/
-	LARGE_INTEGER time;
-	QueryPerformanceCounter(&time);
-	long long diff = time.QuadPart - mLastTime;
-	double elapsed = double(diff) / mTimeFreq;
-	mLastTime = time.QuadPart;
-
-
-	auto picture = GetPicture();
-	if (mPlay)
-	{ 
-		mTimer += elapsed;
-		picture->SetAnimationTime(mTimer);
-	}
-
-	if (picture->GetAnimationTime() >= picture->GetTimeline()->GetDuration())
-	{
-		picture->SetAnimationTime(picture->GetTimeline()->GetDuration());
-		mPlay = false;
-	}
+	//
+	// Draw the pointer
+	//
+	int pw = mPointer->GetWidth();
+	int ph = mPointer->GetHeight();
+	int x = BorderLeft + (int)(timeline->GetCurrentTime() * timeline->GetFrameRate() * TickSpacing);
+	graphics.DrawImage(mPointer.get(),
+		x - mPointer->GetWidth() / 2, (int)(bottom - mPointer->GetHeight()),
+		mPointer->GetWidth(), mPointer->GetHeight()
+		);
 }
 
 /** \brief Force an update of this window when the picture changes.
 */
 void CViewTimeline::UpdateObserver()
 {
-    Invalidate();
+	Invalidate();
 }
 
 
 /** \brief Erase the background
- *
- * This is disabled to eliminate flicker
- * \param pDC Device context 
- * \returns FALSE */
+*
+* This is disabled to eliminate flicker
+* \param pDC Device context
+* \returns FALSE */
 BOOL CViewTimeline::OnEraseBkgnd(CDC* pDC)
 {
-    return FALSE;
+	return FALSE;
 }
 
 
@@ -214,167 +171,212 @@ BOOL CViewTimeline::OnEraseBkgnd(CDC* pDC)
 */
 void CViewTimeline::OnLButtonDown(UINT nFlags, CPoint point)
 {
-    // Convert mouse coordinates to logical coordinates
-    CClientDC dc(this);
-    OnPrepareDC(&dc);
-    dc.DPtoLP(&point);
+	// Convert mouse coordinates to logical coordinates
+	CClientDC dc(this);
+	OnPrepareDC(&dc);
+	dc.DPtoLP(&point);
 
 
-    int x = point.x;
+	int x = point.x;
 
-    // Get the timeline
-    CTimeline *timeline = GetPicture()->GetTimeline();
-    int pointerX = (int)(timeline->GetCurrentTime() * timeline->GetFrameRate() * TickSpacing + BorderLeft);
+	// Get the timeline
+	CTimeline *timeline = GetPicture()->GetTimeline();
+	int pointerX = (int)(timeline->GetCurrentTime() * timeline->GetFrameRate() * TickSpacing + BorderLeft);
 
-    mMovingPointer = x >= pointerX - (int)mPointer->GetWidth() / 2 && x <= pointerX + (int)mPointer->GetWidth() / 2;
-    if (mMovingPointer)
-    {
-        int xx = 0;
-    }
+	mMovingPointer = x >= pointerX - (int)mPointer->GetWidth() / 2 && x <= pointerX + (int)mPointer->GetWidth() / 2;
+	if (mMovingPointer)
+	{
+		int xx = 0;
+	}
 
-    __super::OnLButtonDown(nFlags, point);
+	__super::OnLButtonDown(nFlags, point);
 }
 
 
 /**
- * \brief Handle mouse movement
- * \param nFlags Flags associated with the mouse movement
- * \param point Current mouse location
- */
+* \brief Handle mouse movement
+* \param nFlags Flags associated with the mouse movement
+* \param point Current mouse location
+*/
 void CViewTimeline::OnMouseMove(UINT nFlags, CPoint point)
 {
-    // Convert mouse coordinates to logical coordinates
-    CClientDC dc(this);
-    OnPrepareDC(&dc);
-    dc.DPtoLP(&point);
+	// Convert mouse coordinates to logical coordinates
+	CClientDC dc(this);
+	OnPrepareDC(&dc);
+	dc.DPtoLP(&point);
 
-    CTimeline *timeline = GetPicture()->GetTimeline();
-    if (mMovingPointer && nFlags & MK_LBUTTON)
-    {
-        double time = (double)(point.x - BorderLeft) / (timeline->GetFrameRate() * TickSpacing);
-        if (time < 0)
-        {
-            time = 0;
-        }
-        else if (time > timeline->GetDuration())
-        {
-            time = timeline->GetDuration();
-        }
+	CTimeline *timeline = GetPicture()->GetTimeline();
+	if (mMovingPointer && nFlags & MK_LBUTTON)
+	{
+		double time = (double)(point.x - BorderLeft) / (timeline->GetFrameRate() * TickSpacing);
+		if (time < 0)
+		{
+			time = 0;
+		}
+		else if (time > timeline->GetDuration())
+		{
+			time = timeline->GetDuration();
+		}
 
-        GetPicture()->SetAnimationTime(time);
-        UpdateWindow();
-    }
-    else
-    {
-        mMovingPointer = false;
-    }
+		GetPicture()->SetAnimationTime(time);
+		UpdateWindow();
+	}
+	else
+	{
+		mMovingPointer = false;
+	}
 
-    __super::OnMouseMove(nFlags, point);
+	__super::OnMouseMove(nFlags, point);
 }
 
 
 
 /**
- * \brief Handle the Edit Set Keyframe menu option.
- */
+* \brief Handle the Edit Set Keyframe menu option.
+*/
 void CViewTimeline::OnEditSetkeyframe()
 {
-    for (auto actor : *GetPicture())
-    {
-        actor->SetKeyframe();
-    }
+	for (auto actor : *GetPicture())
+	{
+		actor->SetKeyframe();
+	}
 }
 
 
 /**
- * \brief Handle a delete keyframe menu option
- */
+* \brief Handle a delete keyframe menu option
+*/
 void CViewTimeline::OnEditDeletekeyframe()
 {
-    auto picture = GetPicture();
+	auto picture = GetPicture();
 
-    picture->GetTimeline()->ClearKeyframe();
-    picture->SetAnimationTime(picture->GetAnimationTime());
+	picture->GetTimeline()->ClearKeyframe();
+	picture->SetAnimationTime(picture->GetAnimationTime());
 }
 
 
 /**
- * \brief Handle the File/Save Animation As menu option
- */
- void CViewTimeline::OnFileSaveas()
- {
-     CFileDialog dlg(false,  // false = Save dialog box
-         L".anim",           // Default file extension
-         nullptr,            // Default file name (none)
-         OFN_OVERWRITEPROMPT,      // Flags (none)
-         L"Animation Files (*.anim)|*.anim|All Files (*.*)|*.*||");    // Filter 
-     if (dlg.DoModal() != IDOK)
-         return;
+* \brief Handle the File/Save Animation As menu option
+*/
+void CViewTimeline::OnFileSaveas()
+{
+	CFileDialog dlg(false,  // false = Save dialog box
+		L".anim",           // Default file extension
+		nullptr,            // Default file name (none)
+		OFN_OVERWRITEPROMPT,      // Flags (none)
+		L"Animation Files (*.anim)|*.anim|All Files (*.*)|*.*||");    // Filter 
+	if (dlg.DoModal() != IDOK)
+		return;
 
-     wstring filename = dlg.GetPathName();
+	wstring filename = dlg.GetPathName();
 
-     auto picture = GetPicture();
-     picture->GetTimeline()->Save(filename);
- }
+	auto picture = GetPicture();
+	picture->GetTimeline()->Save(filename);
+}
 
 
 /**
- * \brief Handle the File/Open Animation menu option
- */
- void CViewTimeline::OnFileOpen32782()
- {
-     CFileDialog dlg(true,  // true = Open dialog box
-         L".anim",           // Default file extension
-         nullptr,            // Default file name (none)
-         0,      // Flags (none)
-         L"Animation Files (*.anim)|*.anim|All Files (*.*)|*.*||");    // Filter 
-     if (dlg.DoModal() != IDOK)
-         return;
+* \brief Handle the File/Open Animation menu option
+*/
+void CViewTimeline::OnFileOpen32782()
+{
+	CFileDialog dlg(true,  // true = Open dialog box
+		L".anim",           // Default file extension
+		nullptr,            // Default file name (none)
+		0,      // Flags (none)
+		L"Animation Files (*.anim)|*.anim|All Files (*.*)|*.*||");    // Filter 
+	if (dlg.DoModal() != IDOK)
+		return;
 
-     wstring filename = dlg.GetPathName();
+	wstring filename = dlg.GetPathName();
 
-     auto picture = GetPicture();
-     picture->GetTimeline()->Load(filename);
-     picture->SetAnimationTime(0);
-     picture->UpdateObservers();
- }
-
-
- /**
- * \brief Handle timer events
- * \param nIDEvent The timer event ID
- */
- void CViewTimeline::OnTimer(UINT_PTR nIDEvent)
- {
-	 GetPicture()->UpdateObservers();
-	 __super::OnTimer(nIDEvent);
- }
+	auto picture = GetPicture();
+	picture->GetTimeline()->Load(filename);
+	picture->SetAnimationTime(0);
+	picture->UpdateObservers();
+}
 
 
- /**
- * \brief Event handler to start the animation playing from the current position
- */
- void CViewTimeline::OnPlayPlay()
- {
-	 mPlay = true;
-	 mTimer = GetPicture()->GetAnimationTime();
- }
+/**
+* \brief Handle the Play>Play menu option
+*/
+void CViewTimeline::OnPlayPlay()
+{
+	if (!mPlaying)
+	{
+		/*
+		* Initialize the elapsed time system
+		*/
+		LARGE_INTEGER time, freq;
+		QueryPerformanceCounter(&time);
+		QueryPerformanceFrequency(&freq);
+
+		mLastTime = time.QuadPart;
+		mTimeFreq = double(freq.QuadPart);
+
+		// Set playing true
+		mPlaying = true;
+
+		// Start the timer
+		SetTimer(1, 30, nullptr);
+	}
+}
 
 
- /**
- * \brief Event handler to start the animation playing from beginning
- */
- void CViewTimeline::OnPlayPlayfrombeginning()
- {
-	 mTimer = 0;
-	 mPlay = true;
- }
+/**
+* \brief Handle the Play>Play from Beginning menu option
+*/
+void CViewTimeline::OnPlayPlayfrombeginning()
+{
+	// Set to beginning
+	GetPicture()->SetAnimationTime(0);
+
+	OnPlayPlay();
+}
 
 
- /**
- * \brief Event handler to stop the playback where it is
- */
- void CViewTimeline::OnPlayStop()
- {
-	 mPlay = false;
- }
+/**
+* \brief Handle the Play>Stop menu option
+*/
+void CViewTimeline::OnPlayStop()
+{
+	if (mPlaying)
+	{
+		KillTimer(1);
+		mPlaying = false;
+		GetPicture()->GetTimeline()->ResetParticleSystem();
+		GetPicture()->UpdateObservers();
+	}
+}
+
+
+/**
+* \brief Timer event handler
+* \param nIDEvent Timer event ID
+*/
+void CViewTimeline::OnTimer(UINT_PTR nIDEvent)
+{
+	auto picture = GetPicture();
+	auto timeline = picture->GetTimeline();
+
+	/*
+	* Compute the elapsed time since the last timer call
+	*/
+	LARGE_INTEGER time;
+	QueryPerformanceCounter(&time);
+	long long diff = time.QuadPart - mLastTime;
+	double elapsed = double(diff) / mTimeFreq;
+	mLastTime = time.QuadPart;
+
+	picture->SetAnimationTime(picture->GetAnimationTime() + elapsed);
+
+	if (picture->GetAnimationTime() >= timeline->GetDuration())
+	{
+		OnPlayStop();
+		picture->SetAnimationTime(timeline->GetDuration());
+	}
+
+	GetPicture()->Update(elapsed);
+
+	__super::OnTimer(nIDEvent);
+}
